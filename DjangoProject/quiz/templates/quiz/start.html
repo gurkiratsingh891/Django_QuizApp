@@ -1,0 +1,30 @@
+{% extends 'quiz/header.html' %}
+
+{% block content %}
+{% include 'main/navbar.html' %}
+<h2 style="margin-top:20px">&nbsp;&nbsp;Welcome to Python Quiz</h2>
+<br>
+<div style="margin-left:20px">
+ <form action="{% url 'quiz:results' %}" method="post">
+     {% csrf_token %}
+{% if question_list %}
+    {% for question in question_list %}
+    <fieldset>
+    <h6>{{forloop.counter}}. {{ question.question_text }}</h6>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% for choice in question.choice_set.all %}
+        <input type="radio" required name="choice{{ forloop.parentloop.counter }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor %}
+    </fieldset>
+     <br>
+    {% endfor %}
+{% else %}
+    <p>No questions are available.</p>
+{% endif %}
+     <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+ </form>
+    <br><br><br><br>
+</div>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends 'quiz/header.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+{% include 'main/navbar.html' %}
+
+<div class="row " style="margin-top:100px">
+    <div class="col-md-5 offset-md-1">
+        <h5>Your Quiz attempts</h5>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Marks</th>
+      <th scope="col">Quiz date/time</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for quiz_record in user_quiz_history %}
+    <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{quiz_record.marks}}/{{total}}</td>
+        <td>{{quiz_record.pub_date}}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+    </div>
+
+<div class="col-md-2 offset-md-2">
+    <div class="card-columns" style="padding: 10px; margin: 20px;">
+        <div class="card" align="centre " style="width: 15rem; border:5px black solid">
+            <div class="card-body">
+                <p class="card-text"><i>Highest Score:</i> <b>&nbsp;{{max}}/{{total}}</b></p>
+                <p class="card-text"><i>Lowest Score:</i> <b>&nbsp;{{min}}/{{total}}</b></p>
+                <p class="card-text"><i>Average Score:</i> <b>&nbsp;{{avg}}/{{total}}</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

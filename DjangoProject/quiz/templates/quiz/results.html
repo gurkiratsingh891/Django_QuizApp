@@ -1,0 +1,27 @@
+{% extends 'quiz/header.html' %}
+{% block content %}
+{% include 'main/navbar.html' %}
+<div class="container ">
+    <div class="card-columns offset-md-3" style="padding: 10px; margin-top: 100px;">
+        <div class="card" align="centre " style="width: 32rem; border:5px black solid">
+            {% load static %}
+            <img class="card-img-top" src="{% static 'images/results.jpg' %}" alt="Results">
+            <div class="card-body">
+                <h5 class="card-title">Score: {{correct}}/{{total}}</h5>
+
+                <p class="card-text">Percentage: {{percentage}}%</p>
+                {% if correct == 5 %}
+                <p class="card-text">"You are a genius!"</p>
+                    {% elif correct == 4 %}
+                    <p class="card-text">"Excellent Work!"</p>
+                {% elif correct == 3 %}
+                    <p class="card-text">"Good Job!"</p>
+                {% else %}
+                    <p class="card-text">"Please try again!" <a href="{% url 'quiz:start'  %}">Retake</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
